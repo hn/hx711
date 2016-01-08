@@ -10,7 +10,7 @@ http://www.dfrobot.com/image/data/SEN0160/HX711_english.pdf
 http://www.amazon.com/SMAKN-Weighing-Dual-channel-Conversion-Shieding/dp/B00FVGRZ42 = $10
 
 Compile by running make, which effectively does: 
-	gcc  -o HX711 HX711.c gb_common.o
+	gcc  -o HX711 HX711.c gb_common.c
 
 Run it like so:
 
@@ -94,3 +94,15 @@ By default, this pin is grounded, which sets HX711 to run at 10 samples per seco
 
 Inherent problem with raspberry PI's gpio and talking to something that requires strict timing like the HX711 chip, is that linux running on the raspberry pi 
 is not a realtime operating system. This can cause errors here and there, so there's a few safeguards in the code to reset the chip, etc etc.
+
+Raspberry Pi 2
+==============
+This software uses the Gertboard code to access the GPIOs of the Raspberry. Gertboard uses hard-coded peripheral addresses, however the address has changed between Pi and Pi2.
+
+So to get the code to run on a Raspberry Pi 2, the BCM2708_PERI_BASE has to be changed (in gb_common.c):
+// Raspberry Pi
+
+#define BCM2708_PERI_BASE        0x20000000
+// Raspberry Pi 2
+#define BCM2708_PERI_BASE        0x3F000000
+
