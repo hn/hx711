@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sysexits.h>
 #include "gb_common.h"
 
 #define CLOCK_PIN	24
@@ -35,7 +36,6 @@ void setHighPri(void)
 void setup_gpio()
 {
 	INP_GPIO(DATA_PIN);
-//	INP_GPIO(CLOCK_PIN);
 	OUT_GPIO(CLOCK_PIN);
 	SCK_OFF;
 
@@ -178,7 +178,7 @@ int main(int argc, char **argv)
 				fprintf(stderr,
 					"Option -%c requires a positive integer with maximum value %d as argument.\n",
 					c, SAMPLESMAX);
-				return 1;
+				return EX_USAGE;
 			}
 			break;
 		case 'o':
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 				fprintf(stderr,
 					"Option -%c requires a positive integer as argument.\n",
 					c);
-				return 1;
+				return EX_USAGE;
 			}
 			break;
 		case 'c':
@@ -200,7 +200,7 @@ int main(int argc, char **argv)
 			fprintf(stderr,
 				"Usage: %s [-v[v]] [-o calibration_offset] [-w calibration_weight] [-c calibration_value]\n",
 				argv[0]);
-			return 1;
+			return EX_USAGE;
 		}
 
 	setHighPri();
@@ -232,7 +232,7 @@ int main(int argc, char **argv)
 		printf
 		    ("No data to consider within %.2f percent range of raw average %ld (%ld ... %ld).\n",
 		     (float)SPREAD, avg_raw, filter_low, filter_high);
-		exit(255);
+		return EX_UNAVAILABLE;
 	}
 
 	avg_clean = avg_clean / good;
@@ -250,7 +250,8 @@ int main(int argc, char **argv)
 	} else {
 		printf("%ld\n", avg_clean - caloffset);
 	}
+
 	unpull_pins();
 	restore_io();
-	return 0;
+	return EX_OK;
 }
