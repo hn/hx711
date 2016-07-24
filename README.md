@@ -20,7 +20,7 @@ At the top of HX711.c there two defines, which you need to adjust as the wires a
 
 ### Raspberry Pi 2
 
-This software uses the [Gertboard](https://www.raspberrypi.org/blog/gertboard-is-here/) code to access the GPIOs of the Raspberry. Gertboard uses hard-coded peripheral addresses, however the address has changed between Pi and Pi2. So to get the code to run on a Raspberry Pi 2, the `BCM2708_PERI_BASE` has to be changed (in `gb_common.c`):
+This software uses the Gertboard code to access the GPIOs of the Raspberry. Gertboard uses hard-coded peripheral addresses, however the address has changed between Pi and Pi2. So to get the code to run on a Raspberry Pi 2, the `BCM2708_PERI_BASE` has to be changed (in `gb_common.c`):
 
 ```
 // Raspberry Pi
@@ -31,7 +31,7 @@ This software uses the [Gertboard](https://www.raspberrypi.org/blog/gertboard-is
 
 ### Compilation
 
-Compile by running make, which effectively does: 
+Compile by running `make`, which effectively does: 
 ```
 gcc -o HX711 HX711.c gb_common.c
 ```
@@ -57,7 +57,7 @@ calibration offset: 0, calibration weight: 0, calibration value: 0.
 -105186
 ```
 
-It's perfectly fine to have a negative numbers here (`-105186` in this case).
+It's perfectly fine to have negative numbers here (`-105186` in this case).
 
 ### Second run (calibration)
 
@@ -105,7 +105,7 @@ All the initial hard work has been done by https://github.com/ggurov.
 
 Code indentation, getopt, calibration maths has been added by https://github.com/hn.
 
-Some code has been borrowed from the Gertboard distribution to define the memory locations for GPIO_SET, CLR, and IN0, gpio setup, etc.
+Some code has been borrowed from the [Gertboard](https://www.raspberrypi.org/blog/gertboard-is-here/) distribution to define the memory locations for GPIO_SET, CLR, and IN0, gpio setup, etc.
 
 ## Misc
 
@@ -113,4 +113,4 @@ The load cell will drift depending on temperature and humidity.
 
 One note to keep in mind, this code is designed to run at 80 samples per second, the breakout board comes defaulted to 10 samples per second, This will manifest itself as the whole process taking a fairly long time to complete. To switch to 80 samples per second, one has to desolder the RATE pin from the pad it's soldered to, lift it and solder it to +VCC on HX711 breakout board (pin 15). By default, this pin is grounded, which sets HX711 to run at 10 samples per second.
 
-Inherent problem with Raspberry Pi's GPIO and talking to something that requires strict timing like the HX711 chip, is that linux running on the Raspberry Pi is not a realtime operating system. This can cause errors here and there, so there's a few safeguards in the code to reset the chip, etc etc.
+Inherent problem with Raspberry Pi's GPIO and talking to something that requires strict timing like the HX711 chip, is that Linux running on the Raspberry Pi is not a realtime operating system. This can cause errors here and there, so there's a few safeguards in the code to reset the chip, etc etc.
