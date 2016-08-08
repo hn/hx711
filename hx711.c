@@ -36,6 +36,7 @@ void setHighPri(void)
 void setup_gpio()
 {
 	INP_GPIO(DATA_PIN);
+	INP_GPIO(CLOCK_PIN);
 	OUT_GPIO(CLOCK_PIN);
 	SCK_OFF;
 
