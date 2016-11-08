@@ -2,7 +2,7 @@
 
 Raspberry Pi HX711 weight scale interface
 
-This thing interfaces with the HX711 24-Bit Analog-to-Digital Converter (ADC) for Weigh Scales (http://www.aviaic.com/uploadfile/hx711_brief_en.pdf). You can buy cheap breakout boards at Amazon ("_5PCS New Weighing Sensor AD Module Dual-channel 24-bit A/D Conversion HX711_" = $9).
+This thing interfaces with the HX711 24-Bit Analog-to-Digital Converter (ADC) for Weigh Scales (https://github.com/sparkfun/HX711-Load-Cell-Amplifier/blob/master/datasheets/hx711_english.pdf). You can buy cheap breakout boards at Amazon ("_5PCS New Weighing Sensor AD Module Dual-channel 24-bit A/D Conversion HX711_" = $9).
 
 ## Installation
 
