@@ -129,21 +129,22 @@ long read_count(int verbose)
 	w++;
 	w++;
 
+	// if measurements are shaky, adjust the number of 'w++' waits below (try and error)
+
 	for (i = 0; i < 24; i++) {
 		SCK_ON;
+		count = count << 1;
 		w++;
 		w++;
-//              w++;				// try (un)commenting these waits depending on your raspberry CPU
-//              w++;
-		if (DT_R > 0) {
-			count++;
-		}
+		w++;
+		w++;
+
 		SCK_OFF;
 		w++;
 		w++;
-		w++;
-		w++;
-		count = count << 1;
+		if (DT_R > 0) {
+			count++;
+		}
 	}
 
 	SCK_ON;
