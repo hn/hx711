@@ -32,7 +32,6 @@
 #if LEDW_PIN > 0
 #define LEDW_ON  (GPIO_SET0 = (1 << LEDW_PIN))
 #define LEDW_OFF (GPIO_CLR0 = (1 << LEDW_PIN))
-#define BLINKD		14
 #endif
 
 void setHighPri(void)
